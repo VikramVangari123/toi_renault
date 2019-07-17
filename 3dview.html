@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="https://cdn2.hubspot.net/hubfs/1635524/assets/website/images/favicon.png">
+    <title>Jaguar</title>
+    <link rel="stylesheet" href="style.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        .content {
+            height: calc(100% - 5px);
+        }
+
+        #overlay {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.7);
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position: fixed;
+            z-index: 10;
+            visibility: visible;
+        }
+        div#error {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%);
+            font-size: 12px;
+            color: #b01010;
+            width: 100%;
+        }
+        .popupbox {
+            background: #ffffff;
+            border-radius: 5px;
+            height: 180px;
+            position: absolute;
+            left: 50%;
+            top: 20%;
+            text-align: center;
+            min-width: 320px;
+            transform: translateX(-50%);
+        }
+
+        .popup-cont {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+        }
+
+        .phone input {
+            margin-bottom: 30px;
+            max-width: 260px;
+        }
+
+        .text {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        button {
+            width: 150px;
+            margin: 0 auto;
+            border: 0;
+            box-shadow: none;
+            height: 35px;
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 0;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .phone label {
+            position: relative;
+        }
+        .threeDview .p3d-model-viewer .embed-watermark.clear {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <iframe allowfullscreen webkitallowfullscreen width="100%" height="100%" frameborder="0" seamless
+            src="https://p3d.in/e/Ac2C8"></iframe>
+        <div id="overlay">
+            <div class="popupbox">
+                <div class="popup-cont">
+                    <div id="popcont-in">
+                        <p class="text">Enter your phone number to continue</p>
+                        <form name="myForm" autocomplete="off">
+                            <div class="phone">
+                                <label>
+                                    <input name="phone" placeholder="Phone Number" type="tel">
+                                </label>
+                            </div>
+
+                        </form>
+                        <button id="accept" onclick="validateForm()">Submit</button>
+                    </div>
+                    <div id="success" style="display: none;">Success</div>
+                    <div id="error" style="display: none;">Please enter correct phone number</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        <script>
+            function validateForm() {
+               document.getElementById("error").style.display = "none";
+               document.getElementById("success").style.display = "none";
+               var mobilePattern = /^[14][0-9]+?$/;
+               var mobileNumber = document.forms["myForm"]["phone"].value;
+
+               if (mobilePattern.test(mobileNumber) == false) {
+                   document.getElementById("error").style.display = "block";
+                  // console.log('error')
+               } else {
+                   // document.getElementById("success").style.display = "block";
+                   // console.log('success');
+                   setTimeout(function(){
+                       localStorage.setItem('mobileNumber', document.forms["myForm"]["phone"].value)
+                       document.getElementById("overlay").style.display = "none";
+                   }, 500);
+               }
+           }
+
+           if  (localStorage.getItem('mobileNumber')) {
+            document.getElementById("overlay").style.display = "none";
+           }
+        </script>
+</body>
+
+</html>
